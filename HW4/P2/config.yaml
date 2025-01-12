@@ -1,0 +1,57 @@
+Name: "Yash"
+
+###### Dataset -----------------------------------------------------------------
+root: "/home/yash/data/hw4p2"
+unpaired_text_partition: "text-for-LM" # unpaired text for LM pre-training
+train_partition: "train-clean-100"     # train-clean-100
+val_partition: "dev-clean"             # validation partition
+test_partition: "test-clean"           # test partition
+NUM_WORKERS: 12
+subset: 1.0                      # Load a subset of the data (for debugging, testing, etc)
+token_type: "char"                    # [char, 1k, 10k]
+feat_type: "fbank"                    # ['fbank', 'mfcc']
+num_feats: 80                         # fbanks:[20-80], mfcc:[12:20]
+batch_size: 16
+norm: "cepstral"                      # ['global_mvn', 'cepstral']
+
+###### SpecAugment ---------------------------------------------------------------
+specaug: true
+specaug_conf:
+  apply_freq_mask: true
+  freq_mask_width_range: 10
+  num_freq_mask: 6
+  apply_time_mask: true
+  time_mask_width_range: 50
+  num_time_mask: 8
+
+###### Network Specs -------------------------------------------------------------
+d_model: 384
+d_ff: 1536
+
+###### Embedding Specs -----------------------------------------------------------
+time_stride: 4                        # time-wise downsampling
+feature_stride: 2                     # feature-wise downsampling
+embed_dropout: 0.2
+
+###### Encoder Specs -------------------------------------------------------------
+enc_dropout: 0.2
+enc_num_layers: 4
+enc_num_heads: 8
+
+###### Decoder Specs -------------------------------------------------------------
+dec_dropout: 0.2
+dec_num_layers: 4
+dec_num_heads: 8
+
+###### Base Parameters -----------------------------------------------------------
+use_wandb: true
+use_ctc: true
+ctc_weight: 0.5
+optimizer: "AdamW"                   # Adam, AdamW, SGD
+momentum: 0.0
+nesterov: true
+learning_rate: 2E-4
+scheduler: "ReduceLR"         # ['ReduceLR', 'CosineAnnealing']
+factor: 0.2
+patience: 2
+epochs: 60
