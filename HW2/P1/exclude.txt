@@ -1,0 +1,4 @@
+mytorch/nn/activation.pyc
+mytorch/nn/batchnorm.pyc
+mytorch/nn/linear.pyc
+mytorch/nn/loss.pyc
